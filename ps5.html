@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS5</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #ffffff;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: white;
+        }
+
+        .close-icon {
+            font-size: 24px;
+            font-weight: 400;
+            cursor: pointer;
+            line-height: 1;
+            color: #000;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-icon {
+            cursor: pointer;
+            line-height: 1;
+            color: #000;
+        }
+
+        .header-icon img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .dots-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+        }
+
+        .dots-vertical span {
+            width: 3px;
+            height: 3px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+
+        .product-images {
+            position: relative;
+            background: white;
+            margin-bottom: 0;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 355px;
+            overflow: visible;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 36px;
+            right: 12px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            z-index: 10;
+        }
+
+        .image-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: transparent;
+            margin: 0;
+            position: relative;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .dot.active {
+            background: #333;
+            width: 18px;
+            border-radius: 3px;
+        }
+
+        .price-section {
+            background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 100%);
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: -44px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .price-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .discount-badge {
+            background-color: white;
+            color: #ff2d55;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .original-price-small {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: line-through;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .price-content {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .current-price {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .currency-symbol {
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 2px;
+        }
+
+        .price-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .price-right {
+            text-align: right;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .flash-sale {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .flash-icon {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .timer {
+            font-size: 12px;
+            white-space: nowrap;
+            font-weight: 400;
+        }
+
+        .installment {
+            padding: 6px 16px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .installment-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .no-interest {
+            color: #e91e63;
+            font-weight: 500;
+        }
+
+        .coupon-section {
+            padding: 4px 6px;
+            background-color: #FFE6ED;
+            display: inline-flex;
+            align-items: center;
+            border-bottom: none;
+            border-radius: 3px;
+            margin: 0;
+        }
+
+        .coupon-text {
+            color: #dc093f;
+            font-weight: bold;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1.2;
+        }
+
+        .coupon-icon {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+
+        .product-info {
+            padding: 8px 16px;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .star {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .rating-number {
+            font-weight: 400;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .reviews {
+            color: #3561c1;
+            font-size: 12px;
+        }
+
+        .sold-count {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .sold-count-number {
+            color: #000;
+        }
+
+        .shipping-info {
+            padding: 12px 16px;
+            background-color: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .shipping-icon {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+        }
+
+        .shipping-details {
+            flex: 1;
+        }
+
+        .delivery-date {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .shipping-fee {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .shipping-price {
+            text-decoration: line-through;
+            margin-right: 6px;
+        }
+
+        .pattern-selection {
+            padding: 12px 16px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: none;
+        }
+
+        .pattern-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pattern-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .pattern-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .pattern-label {
+            color: #000;
+            font-weight: 400;
+            background-color: #E8E8E8;
+            padding: 5px 13px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .pattern-selected {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .tiktok-services {
+            padding: 16px;
+            background-color: #FFF9F0;
+            border-bottom: none;
+            position: relative;
+        }
+
+        .services-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .services-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            object-fit: contain;
+            display: block;
+        }
+
+        .services-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8B5A2B;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 16px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 12px;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .check-icon {
+            color: #8B5A2B;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .tiktok-services .arrow-right {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+        }
+
+        .footer-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 768px;
+            margin: 0 auto;
+            display: flex;
+            background-color: white;
+            padding: 12px 12px 20px 12px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            gap: 8px;
+        }
+
+        .footer-icon-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            min-width: 45px;
+        }
+
+        .footer-icon-btn img {
+            width: 19px;
+            height: 19px;
+            margin-bottom: 3px;
+            object-fit: contain;
+        }
+
+        .footer-icon-btn span {
+            font-size: 8px;
+            color: #000;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 3px 0px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1.2;
+            white-space: normal;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buy-now-btn {
+            flex: 1;
+            padding: 3px 0px;
+            background-color: #ff2d55;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1.2;
+            white-space: normal;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #f02d53;
+        }
+
+        .buy-now-btn:active {
+            background-color: #f02d53;
+        }
+
+        .spacer {
+            height: 106px;
+        }
+
+        .arrow-right {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .reviews-section {
+            padding: 16px 14px;
+        }
+        
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .reviews-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .ver-mais {
+            font-size: 13px;
+            color: #8A8A8A;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+        
+        .reviews-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .rating-big {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .reviews-rating > span:nth-child(2) {
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .stars {
+            display: flex;
+            gap: 2px;
+            margin-left: 2px;
+        }
+        
+        .stars img {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .stars img[src*="sD84d5vW"] {
+            width: 14.42px;
+            height: 14.42px;
+        }
+        
+        .stars img.half-star {
+            opacity: 0.5;
+        }
+        
+        .review-item {
+            padding: 0;
+            margin-top: 16px;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .review-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+        
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .review-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .review-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .review-stars img {
+            width: 11px;
+            height: 11px;
+            display: block;
+        }
+        
+        .review-stars img[src*="sD84d5vW"] {
+            width: 11.44px;
+            height: 11.44px;
+        }
+        
+        .review-stars .star-wrapper {
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .review-stars .star-wrapper .star-gold {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .review-stars .star-wrapper .star-gray {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            z-index: 1;
+            border: none;
+            outline: none;
+        }
+        
+        .review-variant {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .review-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        
+        .review-images {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        
+        .review-image {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .review-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .store-stats {
+            text-align: left;
+            padding: 16px 14px 16px 14px;
+            color: #666;
+            border-top: 1px solid #f0f0f0;
+            margin: 16px -14px 0 -14px;
+            padding-left: 14px;
+            padding-right: 14px;
+            border-bottom: 8px solid #f5f5f5;
+            margin-bottom: -8px;
+        }
+        
+        .store-stats-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .stats-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f0f0f0;
+            padding: 6px 10px;
+            border-radius: 6px;
+            min-height: 28px;
+            flex: 0 1 auto;
+            max-width: fit-content;
+        }
+        
+        .stat-badge img {
+            flex-shrink: 0;
+            align-self: center;
+            width: 14px;
+            height: 14px;
+        }
+        
+        .stat-badge span {
+            font-size: 12px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .star-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f0f0f0;
+            padding: 6px 10px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            min-height: 28px;
+            min-width: auto;
+        }
+        
+        .star-badge .rating-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .star-badge img {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        
+        .star-badge .count {
+            font-size: 12px;
+            color: #000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        
+        .seller-section {
+            padding: 16px;
+            border-bottom: 8px solid #f5f5f5;
+        }
+        
+        .seller-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .seller-avatarr {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .seller-avatarr img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .seller-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+            display: flex;
+            align-items: center;
+            margin: 0 0 4px 0;
+        }
+        
+        .seller-items {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .content-section {
+            padding: 16px;
+            border-bottom: 8px solid #f5f5f5;
+        }
+        
+        .content-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* MODAL - DESIGN SIMPLES COM TAMANHOS ORIGINAIS */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 100%;
+            max-width: 768px;
+            border-radius: 12px 12px 0 0;
+            padding: 14px;
+            padding-bottom: 20px;
+            position: relative;
+            max-height: 70vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Botão Fechar */
+        .modal-close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            font-weight: 300;
+            cursor: pointer;
+            color: #000;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        /* Topo do Modal */
+        .modal-top-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-product-thumb {
+            width: 60px;
+            height: 60px;
+            background: #fafafa;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 3px;
+        }
+
+        .modal-product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-price-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .modal-discount-tag {
+            background-color: #ff2d55;
+            color: #fff;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .modal-current-price {
+            color: #ff2d55;
+            font-size: 22px;
+            font-weight: 700;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .modal-current-price .currency {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .modal-info-items {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .modal-frete-gratis {
+            color: #01bdd1;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            background-color: #e6f8f9;
+            padding: 3px 7px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .modal-frete-gratis img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .modal-cor-selecionada {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .modal-hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 14px 0;
+        }
+
+        .modal-section-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Grid de Cores - 3 por linha */
+        .color-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .color-option-card {
+            border: 1.5px solid #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+            padding: 6px 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .color-option-card:hover,
+        .color-option-card.selected {
+            border-color: #ff2d55;
+            background: #fff5f7;
+        }
+
+        .color-option-image {
+            width: 100%;
+            height: 70px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            object-fit: contain;
+            margin-bottom: 6px;
+            padding: 5px;
+        }
+
+        .color-option-name {
+            font-size: 12px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        /* Grid de Armazenamento - 3 por linha */
+        .storage-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .storage-option-card {
+            border: 1.5px solid #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+            padding: 6px 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .storage-option-card:hover,
+        .storage-option-card.selected {
+            border-color: #ff2d55;
+            background: #fff5f7;
+        }
+
+        .storage-option-image {
+            width: 100%;
+            height: 70px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            object-fit: contain;
+            margin-bottom: 6px;
+            padding: 5px;
+        }
+
+        .storage-option-name {
+            font-size: 12px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        /* Botão Comprar */
+        .buy-button {
+            margin-top: 16px;
+            width: 100%;
+            background-color: #ff2d55;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .buy-button:hover {
+            background-color: #f02d53;
+        }
+
+        .buy-button:active {
+            background-color: #f02d53;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <div class="header-icons">
+            <div class="header-icon">
+                <img src="https://i.postimg.cc/RCDT5whX/Design-sem-nome-1.webp" alt="Share">
+            </div>
+            <svg class="header-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+            </svg>
+            <div class="dots-vertical">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <section class="product-images">
+        <div class="image-container">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/jSRj92bj/asd1.webp" alt="Produto 1"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/q7RvJFgg/asw2.webp" alt="Produto 2"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/L5d9V6Tw/zsd3.webp" alt="Produto 3"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/bYWpXR7z/aswc.webp" alt="Produto 4"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/1zfyhNYQ/cvf5.webp" alt="Produto 5"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/sXWy1CzD/asw6.webp" alt="Produto 6"></div>
+                    <div class="swiper-slide"><img src="https://i.postimg.cc/XqcbcKXQ/cfr7.webp" alt="Produto 7"></div>
+                </div>
+            </div>
+            <div class="image-counter" id="image-counter">1/7</div>
+        </div>
+        <div class="image-dots" id="image-dots"></div>
+    </section>
+
+    <div class="price-section">
+        <div class="price-left">
+            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                <div style="display: flex; align-items: center; gap: 4px;">
+                    <span class="discount-badge">-97%</span>
+                    <div class="price-content">
+                        <span class="current-price">
+                            <span class="currency-symbol">R$</span>69,93
+                        </span>
+                        <img class="price-icon" src="https://i.postimg.cc/WpwP5b4b/Design-sem-nome-1.webp" alt="Proteção">
+                    </div>
+                </div>
+                <div class="original-price-small">R$ 2.950,90</div>
+            </div>
+        </div>
+        <div class="price-right">
+            <div class="flash-sale">
+                <img src="https://i.postimg.cc/NFJJZnV9/Design-sem-nome-2.webp" alt="Flash" class="flash-icon">
+                <span>Oferta Relâmpago</span>
+            </div>
+            <div class="timer">Termina em <span id="countdown">00:00:00</span></div>
+        </div>
+    </div>
+
+    <div class="installment">
+        <div class="installment-text">
+            <img src="https://i.postimg.cc/BQfXKvVS/Design-sem-nome.webp" alt="Cartão" style="width: 16px; height: 16px; object-fit: contain;">
+            <span>1x R$ 69,93 <span class="no-interest">sem juros <span class="arrow-right">›</span></span></span>
+        </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 16px; gap: 8px; background-color: white;">
+        <div class="coupon-section" style="display: flex; align-items: center; margin-left: -4px;">
+            <div class="coupon-text" style="display: flex; align-items: center;">
+                <img src="https://i.postimg.cc/DzvGbzmX/Design-sem-nome-2-1.webp" alt="Cupom" class="coupon-icon">
+                <span style="margin-left: 1px;">Desconto de 10%, máximo de R$ 25</span>
+            </div>
+        </div>
+        <span class="arrow-right">›</span>
+    </div>
+
+    <div class="product-info">
+        <h1 class="product-title">Console PS5 Slim 1TB (com leitor de disco) - Branco</h1>
+        <div class="rating-section">
+            <div class="rating">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="Estrela" class="star">
+                <span class="rating-number">4.9</span>
+                <span class="reviews">(4,4 mil)</span>
+            </div>
+            <span class="sold-count"><span class="sold-count-number">44.2K</span> vendidos</span>
+        </div>
+    </div>
+
+    <div class="shipping-info">
+        <img src="https://i.postimg.cc/tJBWXZhh/Design-sem-nome-6.webp" alt="Envio" class="shipping-icon">
+        <div class="shipping-details">
+            <div class="delivery-date" id="delivery-date">Receba até 22-24 de out</div>
+            <div class="shipping-fee">
+                Taxa de envio: <span class="shipping-price">R$ 21,64</span> R$ 0,00
+            </div>
+        </div>
+        <span class="arrow-right">›</span>
+    </div>
+
+    <div class="pattern-selection">
+        <div class="pattern-left">
+            <img src="https://i.postimg.cc/vmSmHrj6/asxdf-1.webp" alt="Padrão" class="pattern-icon">
+            <div class="pattern-text">
+                <span class="pattern-label">Padrão</span>
+                <span class="pattern-selected">Selecionado:Padrão</span>
+            </div>
+        </div>
+        <span class="arrow-right">›</span>
+    </div>
+
+    <div class="tiktok-services">
+        <div class="services-grid" style="grid-template-columns: 1fr 1fr; gap: 10px 16px;">
+            <div style="display: flex; align-items: flex-start; gap: 6px; grid-column: 1 / -1; margin-bottom: 2px;">
+                <img src="https://i.postimg.cc/XNK0sK8p/Design-sem-nome-3.webp" alt="Serviços" style="width: 14px; height: 14px; display: block; flex-shrink: 0; margin-left: -1px;">
+                <span style="font-size: 12px; font-weight: 600; color: #8B5A2B; line-height: 12px; margin-left: 0px;">Proteção do cliente</span>
+            </div>
+            <div class="service-item">
+                <span class="check-icon">✓</span>
+                <span>Devolução gratuita</span>
+            </div>
+            <div class="service-item">
+                <span class="check-icon">✓</span>
+                <span>Cupom por perda ou dano</span>
+            </div>
+            <div class="service-item">
+                <span class="check-icon">✓</span>
+                <span>Pagamento seguro</span>
+            </div>
+            <div class="service-item">
+                <span class="check-icon">✓</span>
+                <span>Cupom por atraso na coleta</span>
+            </div>
+        </div>
+        <span class="arrow-right">›</span>
+    </div>
+
+    <div style="height: 8px; background-color: #f5f5f5;"></div>
+
+    <section class="reviews-section">
+        <div class="reviews-header">
+            <span class="reviews-title">Avaliações dos clientes (4,4 mil)</span>
+            <a href="#" class="ver-mais">Ver mais ›</a>
+        </div>
+        
+        <div class="reviews-rating">
+            <span class="rating-big">4.9</span>
+            <span>/5</span>
+            <div class="stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/kgXYFKjj/Design-sem-nome-2.webp" alt="star">
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="K*e G*0" src="https://i.postimg.cc/nLJTbHmL/dfg5.webp" style="object-fit: cover;">
+                </div>
+                <div>
+                    <div class="review-name">K*e G*0</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Comprei o PlayStation 5 e simplesmente amei! Não me arrependo nem um pouco! Os gráficos são incríveis e esse novo modelo ficou perfeito. Agora ele não tem mais aquele acabamento em black piano, então não risca com facilidade, o que é ótimo. Mesmo com a capacidade um pouco menor, ainda cabe bastante jogo.  Além disso, ele é bem mais leve e compacto que o modelo antigo, deixando o setup muito mais bonito e organizado. Tô super satisfeita com a compra! Obrigada! 💜</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/L5Jh6bsB/polk.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/vZrTB9Qc/qwsd.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 3" src="https://i.postimg.cc/pdkdQHh1/vbgj.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="M*a V*a" src="https://i.postimg.cc/d3hcyMrL/vbhu.webp">
+                </div>
+                <div>
+                    <div class="review-name">M*a V*a</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/kgXYFKjj/Design-sem-nome-2.webp" alt="star">
+                <img src="https://i.postimg.cc/kgXYFKjj/Design-sem-nome-2.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Chegou tudo certinho, testei e tá funcionando de boa!
+A caixa veio com um rasguinho embaixo, mas nada que atrapalhe 😎</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/rwsc6rKH/cvgl.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/HnTD6Jqc/qasw.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 3" src="https://i.postimg.cc/DfcK8gGg/cfgh.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 4" src="https://i.postimg.cc/76MjJH5h/aswq.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="L**s" src="https://i.postimg.cc/6prJRf4x/aswq.webp">
+                </div>
+                <div>
+                    <div class="review-name">L**s</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Ps5 topppp!. Pode comprar sem. Medo!</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/nLxkjvBD/qwsh.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/3RJF9YLj/cvgp.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="i*d*" src="https://i.postimg.cc/vBmpJRqH/qwsd.webp">
+                </div>
+                <div>
+                    <div class="review-name">i*d*</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/kgXYFKjj/Design-sem-nome-2.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Bom, quem tem o PlayStation 4 não tem ideia de como é grande a diferença entre o 4 e o PlayStation 5. Gente, é mais velocidade, imagens e gráficos fora de série, fantástico!</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/nrxjTkV5/wsdcf.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/VLY0CDVJ/asweg.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 3" src="https://i.postimg.cc/13XgW4P9/qwedf.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="J**sc**o" src="https://i.postimg.cc/HxQJyysb/asx5.webp">
+                </div>
+                <div>
+                    <div class="review-name">J**sc**o</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Ótimo aparelho e ótimo combo. Recomendo mais essa oferta do que comprar usado.</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/FFPNTpKK/aswef.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="A**sP**S" src="https://i.postimg.cc/ydB12rsX/asw7.webp">
+                </div>
+                <div>
+                    <div class="review-name">A**sP**S</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Comprei para o meu namorado de aniversário, melhor presente que poderia ter dado. Ele amou, ou produto é perfeito!</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/4NTqbh6c/erfgh.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/Znz7c1yf/qwsdr.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 3" src="https://i.postimg.cc/kMWh4X0D/vghjk.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 4" src="https://i.postimg.cc/jdXgH3dx/qwsdm.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-avatar">
+                    <img alt="J**a C**O" src="https://i.postimg.cc/HWrLMFp9/vghy.webp">
+                </div>
+                <div>
+                    <div class="review-name">J**a C**O</div>
+                </div>
+            </div>
+            <div class="review-stars">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+            </div>
+            <div class="review-variant">Item: Padrão</div>
+            <div class="review-text">Meu sonho era obter um console de última geração, estou gostando muito!</div>
+            <div class="review-images">
+                <div class="review-image">
+                    <img alt="Review photo 1" src="https://i.postimg.cc/HL4VnM9z/cfgko.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 2" src="https://i.postimg.cc/dQSDhwGK/qwsdj.webp">
+                </div>
+                <div class="review-image">
+                    <img alt="Review photo 3" src="https://i.postimg.cc/ZqZ5GRz3/asdvg.webp">
+                </div>
+            </div>
+        </div>
+        
+        <div class="store-stats">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                <div class="store-stats-title">Avaliações da loja (4,4 mil)</div>
+                <span style="color: #999; font-size: 18px;">›</span>
+            </div>
+            <div class="stats-container">
+                <div class="stat-badge">
+                    <img src="https://i.imgur.com/1ng12Eo.png" alt="icon" style="width: 16px; height: 16px; flex-shrink: 0;">
+                    <span>Inclui imagens ou vídeos(593)</span>
+                </div>
+                <div class="star-badge">
+                    <span class="rating-number">5</span>
+                    <img src="https://i.postimg.cc/3Jhg2hLS/Design-sem-nome-5.webp" alt="star">
+                    <span class="count">(4,4 mil)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seller-section">
+        <div class="seller-card">
+            <div class="seller-avatarr">
+                <img src="https://i.postimg.cc/DfMd2W01/qwsdcvhj.webp" alt="Mundo Gamer">
+            </div>
+            <div class="seller-info">
+                <h4 class="seller-name">
+                    Mundo Gamer
+<img src="https://i.postimg.cc/Gh7kvMXh/dfvgh.webp" alt="Verificado" style="width: auto; height: 0.8em; margin-left: 4px; vertical-align: middle;">
+                </h4>
+                <p class="seller-items">44.2K vendido(s)</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-section" id="description" style="border-bottom: none;">
+        <section style="padding: 16px;">
+            <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Descrição do Produto</h3>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Console Sony PlayStation 5 Slim com Leitor – Caixa Branca</h4>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Design Slim</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Com o PS5 Slim, os jogadores contam com uma poderosa tecnologia de jogos em um design elegante e compacto.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">1TB de armazenamento</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Tenha seus jogos favoritos prontos e esperando para você começar a jogar com 1TB de armazenamento SSD integrado.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">SSD de ultra velocidade</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Aproveite mais horas jogando com uma inicialização quase instantânea dos jogos de PS5 instalados.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Ray Tracing</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Mergulhe em novos mundos com um novo nível de realismo em que os raios de luz são simulados individualmente, criando sombras e reflexos reais nos jogos compatíveis com o PS5.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Jogabilidade em TV 4K</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Divirta-se com seus jogos favoritos para PS5 na sua incrível TV 4K.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Até 120 FPS com saída de 120 Hz</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Aproveite seus jogos com alta taxa de quadros fluida e suave de até 120 FPS para os jogos compatíveis com suporte para saídas de 120 Hz em telas 4K.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Tecnologia HDR</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Com uma TV HDR, os jogos compatíveis com o PS5 apresentam uma gama de cores incrível, vibrante e realista.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Tempest 3D AudioTech</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Mergulhe em paisagens sonoras em que o som parece vir de todas as direções. Por meio dos headphones ou alto-falantes da TV, tudo ao seu redor ganha vida com a Tempest 3D AudioTech nos jogos compatíveis.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Gatilhos adaptáveis</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+Domine os gatilhos adaptáveis de forma imersiva, com níveis de resistência dinâmica que simulam o impacto físico de atividades dentro dos jogos selecionados para PS5.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Compatibilidade com versões anteriores e Game Boost</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+O console PS5 pode rodar mais de 4.000 jogos PS4. Com o recurso Game Boost, você pode até mesmo aproveitar taxas de quadros mais rápidas e suaves em alguns dos melhores jogos do console PS4.
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Características:</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+<strong>Marca:</strong> Sony<br>
+<strong>Modelo:</strong> PlayStation 5 Slim com leitor<br>
+<strong>Cor:</strong> Branco
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">DESTAQUES</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+<strong>CPU:</strong><br>
+• x86-64 AMD Ryzen "Zen 2"<br>
+• 8 Cores / 16 Threads<br>
+• Frequência variável, até 3.5 GHz<br><br>
+
+<strong>GPU:</strong><br>
+• Mecanismo de gráficos baseado em AMD Radeon RDNA 2<br>
+• Aceleração Ray Tracing<br>
+• Frequência variável, até 2.23 GHz (10.3 TFLOPS)<br><br>
+
+<strong>Memória:</strong><br>
+• Tipo: GDDR6<br>
+• Capacidade: 16 GB<br>
+• Largura de banda: 448 GB/s<br><br>
+
+<strong>Armazenamento:</strong><br>
+• Tipo: SSD<br>
+• Capacidade: 1 TB<br>
+• Largura de banda de leitura: 5.5 GB/s (Raw)<br><br>
+
+<strong>Disco dos Jogos:</strong><br>
+• Tipo: Ultra HD Blu-ray<br>
+• Até 100 GB / disco<br><br>
+
+<strong>Saída de Vídeo:</strong><br>
+• Suporte a TVs de 120Hz 4K, TVs 8K, VRR (HDMI versão 2.1)<br><br>
+
+<strong>Áudio:</strong><br>
+• "Tempest" 3D AudioTech<br><br>
+
+<strong>Recurso:</strong><br>
+• Compatível com VR (PSVR)<br><br>
+
+<strong>Tensão de Alimentação:</strong><br>
+• 100–240V | 1.65–0.75A | 50/60Hz | 350W<br><br>
+
+<strong>Entrada / Saída:</strong><br>
+• 1x USB Type-A (Hi-Speed USB)<br>
+• 2x USB Type-A (Super-Speed USB 10Gbps)<br>
+• 1x USB Type-C (Super-Speed USB 10Gbps)<br><br>
+
+<strong>Rede:</strong><br>
+• Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)<br>
+• IEEE 802.11 a/b/g/n/ac/ax<br>
+• Bluetooth 5.1<br><br>
+
+<strong>Temperatura de Operação:</strong><br>
+• 5°C a 35°C
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Controle sem Fio DualSense</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+<strong>Botões:</strong><br>
+• Botão PS<br>
+• Botão Criar<br>
+• Botão Options<br>
+• Botões direcionais (Cima/Baixo/Esquerda/Direita)<br>
+• Botões de Ação (Triângulo, Círculo, Cruz, Quadrado)<br>
+• Botões R1/L1, R2/L2 (com efeitos de gatilho)<br>
+• Controle esquerdo / botão L3<br>
+• Controle direito / botão R3<br>
+• Botão do Touch Pad<br>
+• Botão MUTE<br><br>
+
+<strong>Touch Pad:</strong><br>
+• 2 Point Touch Pad<br>
+• Capacitive Type<br>
+• Click Mechanism<br><br>
+
+<strong>Sensor de Movimento:</strong><br>
+• Sensor de movimento com 6 eixos (giroscópio de 3 eixos + acelerômetro de 3 eixos)<br><br>
+
+<strong>Bateria:</strong><br>
+• Íon-lítio recarregável embutida<br>
+• Voltagem: DC 3.65V<br>
+• Capacidade: 1560mAh<br><br>
+
+<strong>Comunicação:</strong><br>
+• Sem Fio: Bluetooth Ver. 5.1<br>
+• Com Fio: USB connection (HID, Audio)<br><br>
+
+<strong>Resposta:</strong><br>
+• Efeitos de gatilho (R2/L2)<br>
+• Vibração tátil com atuador duplo<br>
+• Indicadores de luz / jogador / MUTE<br><br>
+
+<strong>Áudio:</strong><br>
+• Microfone embutido<br>
+• Alto-falante mono integrado<br>
+• Entrada para headset estéreo<br>
+• Output: 48kHz/16bit | Input: 24kHz/16bit
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Conteúdo da Embalagem:</h4>
+            <p style="line-height: 1.6; margin-bottom: 12px; font-size: 13px;">
+• 1x Console PlayStation 5 Slim com SSD de 1TB<br>
+• 1x Controle sem fio DualSense<br>
+• 2x Suportes em acrílico<br>
+• 1x Cabo HDMI<br>
+• 1x Cabo de energia AC<br>
+• 1x Cabo USB<br>
+• 2x Materiais impressos (idioma português)<br>
+• ASTRO'S PLAYROOM (jogo pré-instalado)*
+            </p>
+            
+            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 12px;">Garantia:</h4>
+            <p style="line-height: 1.6; margin-bottom: 16px; font-size: 13px;">
+• 365 dias para o console (defeitos de fabricação não decorrentes de uso)<br>
+• 90 dias para acessórios (defeitos de fabricação não decorrentes de uso)
+            </p>
+</section>
+</div>
+
+    <div class="spacer"></div>
+    <div class="footer-buttons">
+        <button class="footer-icon-btn">
+            <img src="https://i.postimg.cc/mkgVNGjd/vgbnj.webp" alt="Loja">
+            <span>Loja</span>
+        </button>
+        <button class="footer-icon-btn">
+            <img src="https://i.postimg.cc/Hs7bGxr0/cfews.webp" alt="Chat">
+            <span>Chat</span>
+        </button>
+        <button class="add-to-cart-btn" id="add-to-cart" onclick="window.location.href='https://pay.seguromarketplace.shop/yOeXZKlm0AEGAQa'">
+            <span>Adicionar</span>
+            <span>ao carrinho</span>
+        </button>
+        <button class="buy-now-btn" id="buy-now" onclick="window.location.href='https://pay.seguromarketplace.shop/yOeXZKlm0AEGAQa'">
+            <span>Comprar</span>
+            <span>com cupom</span>
+        </button>
+    </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Função para o contador regressivo
+            function startCountdown() {
+                const countdownElement = document.getElementById('countdown');
+                
+                // Define o tempo final (1 hora, 47 minutos e 53 segundos a partir de agora)
+                const endTime = new Date().getTime() + (1 * 60 * 60 * 1000) + (47 * 60 * 1000) + (53 * 1000);
+                
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
+                    
+                    if (distance < 0) {
+                        countdownElement.textContent = "00:00:00";
+                        return;
+                    }
+                    
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    const formattedHours = String(hours).padStart(2, '0');
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    const formattedSeconds = String(seconds).padStart(2, '0');
+                    
+                    countdownElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+                }
+                
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+            
+            startCountdown();
+
+            // Função para calcular e atualizar a data de entrega (2 a 3 dias)
+            function updateDeliveryDate() {
+                const today = new Date();
+                const startDate = new Date(today);
+                startDate.setDate(today.getDate() + 2);
+                const endDate = new Date(today);
+                endDate.setDate(today.getDate() + 3);
+
+                const months = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+                
+                const startDay = startDate.getDate();
+                const endDay = endDate.getDate();
+                const startMonth = months[startDate.getMonth()];
+                const endMonth = months[endDate.getMonth()];
+
+                let dateText;
+                if (startMonth === endMonth) {
+                    dateText = `Receba até ${startDay}-${endDay} de ${startMonth}`;
+                } else {
+                    dateText = `Receba até ${startDay} de ${startMonth}-${endDay} de ${endMonth}`;
+                }
+
+                document.getElementById('delivery-date').textContent = dateText;
+            }
+
+            updateDeliveryDate();
+
+            // Inicializar Swiper
+            const swiper = new Swiper(".mySwiper", {
+                loop: false,
+                slidesPerView: 1,
+                spaceBetween: 0,
+                on: {
+                    slideChange: function () {
+                        document.getElementById('image-counter').textContent = `${this.activeIndex + 1}/7`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+
+</html>
